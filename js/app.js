@@ -8,12 +8,13 @@
 
 var playGame
 var Grid
-var x
-var y
 var score
 var highestScore
 var mine = '<img src = "http://logic.stanford.edu/intrologic/images/mine.png">'
 var player = '<img src = "http://downloadicons.net/sites/default/files/blue-circle-button-icon-32722.png">'
+var randomInt = function(min,max){
+  return Math.floor(Math.random()*(max-min))+min
+}
 
 $(function(){
   $('li.mines').html(mine);
@@ -21,19 +22,19 @@ $(function(){
   $('li.mines img').delay(5000).fadeOut();
   $('li.mines').on("click", function(randomMine){
   }) 
+ randomInt(1,4)
 
- 
-function randomMine(){
-      var randomNumber = Math.random();
-      if (randomNumber < 0.25) {
-          return ("x2y0" || "x3y0")
-      } else if (randomNumber < 0.50) {
-          return ("x1y1" || "x2y1" || "x3y1")
-      } else if (randomNumber < 0.75) {
-          return ("x0y2" || "x1y2" || "x2y2" || "x3y2")
-      } else (randomNumber < 1.0) 
-          return ("x0y3" || "x1y3" || "x2y3")
-    }
+  function randomMine(){
+    var randomNumber = Math.random();
+    if (randomNumber < 0.25) {
+      return ("x2y0","x3y0")
+    } else if (randomNumber < 0.50) {
+      return ("x1y1" "x2y1" || "x3y1")
+    } else if (randomNumber < 0.75) {
+      return ("x0y2" || "x1y2" || "x2y2" || "x3y2")
+    } else (randomNumber < 1.0) 
+    return ("x0y3" || "x1y3" || "x2y3")
+  }
 
   var dangerMine = randomMine();
 
