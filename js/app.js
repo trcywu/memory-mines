@@ -16,31 +16,88 @@ var randomInt = function(min,max){
   return Math.floor(Math.random()*(max-min))+min
 }
 
-$(function(){
-  $('li.mines').html(mine);
-  $('li.x0y0').html(player);
-  $('li.mines img').delay(5000).fadeOut();
-  $('li.mines').on("click", function(randomMine){
-  }) 
- randomInt(1,4)
+//  $('li.mines').html(mine);
+//  $('li.x0y0').html(player);
+//  $('li.mines img').delay(5000).fadeOut();
+//  $('li.mines').on("click", function(randomMine){
+//  }) 
+// randomInt(1,4)
 
-  function randomMine(){
-    var randomNumber = Math.random();
-    if (randomNumber < 0.25) {
-      return ("x2y0","x3y0")
-    } else if (randomNumber < 0.50) {
-      return ("x1y1" "x2y1" || "x3y1")
-    } else if (randomNumber < 0.75) {
-      return ("x0y2" || "x1y2" || "x2y2" || "x3y2")
-    } else (randomNumber < 1.0) 
-    return ("x0y3" || "x1y3" || "x2y3")
+//  function randomMine(){
+//    var randomNumber = Math.random();
+//    if (randomNumber < 0.25) {
+//      return ("x2y0","x3y0")
+//    } else if (randomNumber < 0.50) {
+//      return ("x1y1" "x2y1" || "x3y1")
+//    } else if (randomNumber < 0.75) {
+//      return ("x0y2" || "x1y2" || "x2y2" || "x3y2")
+//    } else (randomNumber < 1.0) 
+//    return ("x0y3" || "x1y3" || "x2y3")
+//  }
+
+//  var dangerMine = randomMine();
+
+//  console.log(dangerMine)
+
+//  $(this).addClass("mine")
+
+$(function(){
+  gridBuilder();
+  pathDrawing();
+  dropMines(4);
+  setupPlayer();
+  bindArrowEvents();
+});
+
+var width = 4;
+var start = (width*width)-(width);
+var path  = [start];
+
+function gridBuilder(){
+  $("body").append("<ul class='grid'></ul>");
+  for (var i=0; i < (width*width); i++){
+    $(".grid").append("<li class='mines'>"+i+"</li>")
+  }
+}
+
+function pathDrawing(){
+  // Make a path randomly choosing up and right
+  var lastMove    = path[path.length-1];
+  var moveOptions = [-width, +1];
+  var randomMove  = moveOptions[Math.floor(Math.random()*moveOptions.length)]
+  var nextMove    = lastMove + randomMove;
+
+  // Check if end move
+  if (lastMove % width === (width-1)) {
+    nextMove = lastMove - width;
+  } 
+
+  // Check if top row
+  if (nextMove < 0) {
+    nextMove = lastMove + 1;
   }
 
-  var dangerMine = randomMine();
+  path.push(nextMove);
+  // console.log(path);
+  if (path[path.length-1] !== (width-1)) pathDrawing();
+}
 
-  console.log(dangerMine)
+function dropMines(numberOfMines){
+  var possibleMoves = [];
+  for (var i = 0; i < (width*width); i++) {
+    if (path.indexOf(i) === -1) possibleMoves.push(i);
+  }
 
+  for (var i = 0; i < numberOfMines; i++) {
+    var randomPossibleSquare = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
+    $($(".grid li")[randomPossibleSquare]).html(mine);
+  }
+}
 
+function setupPlayer(){
+  $($(".grid li")[start]).css("background", "red");
+}
 
-  $(this).addClass("mine")
-});
+function bindArrowEvents(){
+  
+}

@@ -31,7 +31,6 @@ h2 {
   padding: 0;
   margin: 0 auto;
   border: 2px solid red;
- 
 }
 
 .mines {
@@ -54,7 +53,6 @@ h2 {
   color: white;
   text-align: right;
 }
-
 
 .mines img {
   width: 10%; 
