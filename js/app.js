@@ -48,11 +48,13 @@ $(function(){
   pathDrawing();
   dropMines(4);
   setupPlayer();
-  bindArrowEvents();
+  // bindArrowEvents();
+  winGame();
 });
 
 var width = 4;
 var start = (width*width)-(width);
+var finish = (width-1);
 var path  = [start];
 var playerPosition = start;
 
@@ -106,8 +108,8 @@ function setupPlayer(){
       var moveTo = (playerPosition - width);
       $($('.grid li')[moveTo]).html(player);
         playerPosition = moveTo
-     }
-     else if (squares.which === 39){
+
+     } else if (squares.which === 39){
       var moveTo = (playerPosition + 1);
       $($('.grid li')[moveTo]).html(player);
         playerPosition = moveTo
@@ -117,7 +119,21 @@ function setupPlayer(){
 
 // check back
 
-function bindArrowEvents(){
+function winGame() {
+  if (moveTo === finish){
+    console.log("win")
+  }
 }
+
+// Check for a win
+ game.checkForWin = function checkForWin(){
+  if ($("#0").hasClass("player")) {
+    $("h1").append("Congratulations, you beat the level!");
+    // Need to add in a feature to end the game and reset the level here.
+ }
+}
+
+
+
 
 
