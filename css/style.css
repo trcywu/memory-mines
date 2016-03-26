@@ -33,7 +33,7 @@ h2 {
   border: 2px solid red;
 }
 
-.mines {
+.squares {
   width: 98px;
   height: 98px;
   list-style-type: none;
@@ -54,7 +54,7 @@ h2 {
   text-align: right;
 }
 
-.mines img {
+.squares img {
   width: 50%;
   padding-top: 25px;
   padding-left: 25px;

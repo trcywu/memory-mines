@@ -58,7 +58,7 @@ var path  = [start];
 function gridBuilder(){
   $("body").append("<ul class='grid'></ul>");
   for (var i=0; i < (width*width); i++){
-    $(".grid").append("<li class='mines'>"+i+"</li>")
+    $(".grid").append("<li class='squares'>"+i+"</li>")
   }
 }
 
@@ -94,14 +94,22 @@ function dropMines(numberOfMines){
     var randomPossibleSquare = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
     $($(".grid li")[randomPossibleSquare]).html(mine);
   }
+    $('li.squares img').delay(5000).fadeOut();
 }
 
 function setupPlayer(){
-  $($(".grid li")[start]).html(player);
+  $($(".grid li")[start]).html(player).addClass('squares');
+//   $('body').on("keyup", function(e) {
+//      event.preventDefault();
+//      if (e.which === 38) {
+//   console.log(‘hello world’);
+//   }
+//  }
 }
 
-classAdd
+// check back
 
 function bindArrowEvents(){
-
 }
+
+
