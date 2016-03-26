@@ -6,16 +6,6 @@
 //Steps
 //for the first game, click 'Play Game' and the mines will randomly be placed on the grid
 
-var playGame
-var Grid
-var score
-var highestScore
-var mine = '<img src = "http://logic.stanford.edu/intrologic/images/mine.png">'
-var player = '<img src = "http://downloadicons.net/sites/default/files/blue-circle-button-icon-32722.png">'
-var randomInt = function(min,max){
-  return Math.floor(Math.random()*(max-min))+min
-}
-
 //  $('li.mines').html(mine);
 //  $('li.x0y0').html(player);
 //  $('li.mines img').delay(5000).fadeOut();
@@ -40,6 +30,18 @@ var randomInt = function(min,max){
 //  console.log(dangerMine)
 
 //  $(this).addClass("mine")
+
+
+var playGame
+var Grid
+var score
+var highestScore
+var mine = '<img src = "http://logic.stanford.edu/intrologic/images/mine.png">'
+var player = '<img src = "http://downloadicons.net/sites/default/files/blue-circle-button-icon-32722.png">'
+var randomInt = function(min,max){
+  return Math.floor(Math.random()*(max-min))+min
+}
+
 
 $(function(){
   gridBuilder();
@@ -95,9 +97,11 @@ function dropMines(numberOfMines){
 }
 
 function setupPlayer(){
-  $($(".grid li")[start]).css("background", "red");
+  $($(".grid li")[start]).html(player);
 }
 
+classAdd
+
 function bindArrowEvents(){
-  
+
 }
