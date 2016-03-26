@@ -55,7 +55,9 @@ h2 {
 }
 
 .mines img {
-  width: 50%; 
+  width: 50%;
+  padding-top: 25px;
+  padding-left: 25px;
 }
 
 
