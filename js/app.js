@@ -32,7 +32,7 @@
 //  $(this).addClass("mine")
 
 
-var playGame
+
 var Grid
 var score
 var highestScore
@@ -54,6 +54,7 @@ $(function(){
 var width = 4;
 var start = (width*width)-(width);
 var path  = [start];
+var playerPosition = start;
 
 function gridBuilder(){
   $("body").append("<ul class='grid'></ul>");
@@ -98,13 +99,20 @@ function dropMines(numberOfMines){
 }
 
 function setupPlayer(){
-  $($(".grid li")[start]).html(player).addClass('squares');
-//   $('body').on("keyup", function(e) {
-//      event.preventDefault();
-//      if (e.which === 38) {
-//   console.log(‘hello world’);
-//   }
-//  }
+  $($(".grid li")[start]).html(player)
+  $('body').on("keydown", function(squares) {
+     squares.preventDefault();
+     if (squares.which === 38){
+      var moveTo = (playerPosition - width);
+      $($('.grid li')[moveTo]).html(player);
+        playerPosition = moveTo
+     }
+     else if (squares.which === 39){
+      var moveTo = (playerPosition + 1);
+      $($('.grid li')[moveTo]).html(player);
+        playerPosition = moveTo
+     }
+ })
 }
 
 // check back
