@@ -144,6 +144,7 @@ function reset() {
   
   gridBuilder();
   pathDrawing();
+  mines = [];
   dropMines(3);
   $($(".grid li")[start]).html(player);
 }
