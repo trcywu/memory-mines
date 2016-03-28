@@ -15,7 +15,7 @@ $(function(){
 function startGame(){
   gridBuilder();
   pathDrawing();
-  dropMines(3);
+  dropMines(8);
   setupPlayer();
 }
 
@@ -145,7 +145,7 @@ function reset() {
   gridBuilder();
   pathDrawing();
   mines = [];
-  dropMines(3);
+  dropMines(8);
   $($(".grid li")[start]).html(player);
 }
 
