@@ -19,7 +19,7 @@
 
 var Grid
 var score
-var highestScore
+var scoreCounter = 0
 var mine = '<img src = "http://logic.stanford.edu/intrologic/images/mine.png">'
 var player = '<img src = "http://downloadicons.net/sites/default/files/blue-circle-button-icon-32722.png">'
 var randomInt = function(min,max){
@@ -95,8 +95,8 @@ function setupPlayer(){
        var moveTo = (playerPosition - width);
        // Move the player
        $($('.grid li')[moveTo]).html(player);
-       // Clear the grid
-       $($('.grid li')[playerPosition]).empty();
+       $($('.grid li')[playerPosition]).css("color", "blue");
+       
 
        playerPosition = moveTo;
      // Right
@@ -105,9 +105,6 @@ function setupPlayer(){
        var moveTo = (playerPosition + 1);
        // Move the player
        $($('.grid li')[moveTo]).html(player);
-       // Clear the grid
-       $($('.grid li')[playerPosition]).empty();
-
        playerPosition = moveTo;
      }
 
@@ -120,7 +117,16 @@ function setupPlayer(){
 function checkForWin() {
   if (playerPosition === finish) {
     alert("Win!");
+    scoreCounter++;
+    $('li.scoreCounter').html("scoreCounter")
+    //reset the game but keep the score
+  } else if (playerPosition === randomPossibleSquare) {
+    alert("You've hit a mine. Game Over");
+    //reset the game and wipe the score
   }
+
+  
+
 }
 
 
