@@ -8,19 +8,12 @@
 
 
 
-var mine = '<img src = "https://cdn4.iconfinder.com/data/icons/mining-icons/100/3-512.png">'
-var player = '<img src ="http://www.vican.no/lei-et-foredrag/img/wdot.png">'
-var randomInt = function(min,max){
-  return Math.floor(Math.random()*(max-min))+min
-}
-
-
 $(function(){
   gridBuilder();
   pathDrawing();
   dropMines(15);
   setupPlayer();
-  // reset();
+  reset();
   // bindArrowEvents();
 });
 
@@ -31,6 +24,12 @@ var path  = [start];
 var playerPosition = start;
 var scoreCounter = 0;
 var mines = [];
+var mine = '<img src = "https://cdn4.iconfinder.com/data/icons/mining-icons/100/3-512.png">'
+var player = '<img src ="http://www.vican.no/lei-et-foredrag/img/wdot.png">'
+var randomInt = function(min,max){
+  return Math.floor(Math.random()*(max-min))+min
+}
+
 
 function gridBuilder(){
   $("body").append("<ul class='grid'></ul>");
@@ -113,17 +112,39 @@ function checkForWin() {
     alert("you win!")
     scoreCounter++;
     $('li#scoreCounter').html(scoreCounter);
+    reset();
   }
   $.each(mines, function(i, mine){
     if (playerPosition == mine) {
       $(playerPosition).css("color", "red")
       alert("you've hit a mine. Game Over");
+      reset();
       //function that happens when you lose
     }  
   });
 }
 
+function reset() {
+$.each(squares, function(i, square){
+  $($(".grid")[i]).html("");
+  setupPlayer();
+  dropMines();
+})
 
+
+
+
+}
+
+//   for (var i = 0; i < boxes.length; i++) {
+//     boxes[i].innerHTML = "";
+//     boxes[i].setAttribute("class", "clear");
+//   }
+//   moveCount    = 1;
+//   oMoves     = [];
+//   xMoves     = [];
+//   turnText.innerHTML = "It is X's turn";
+// }
 
 //reset the game but keep the score
 

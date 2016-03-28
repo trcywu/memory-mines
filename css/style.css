@@ -55,6 +55,14 @@ h2 {
   display: inline-block;
   background-color: #00CED1;
 }
+#reset {
+  color: white;
+  text-align: left;
+  border: 1px solid white;
+  height: 20px;
+  width: 50px;
+  text-align: center;
+}
 
 #start {
   color: white;
