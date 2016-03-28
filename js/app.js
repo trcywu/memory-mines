@@ -20,8 +20,8 @@
 var Grid
 var score
 var scoreCounter = 0
-var mine = '<img src = "http://logic.stanford.edu/intrologic/images/mine.png">'
-var player = '<img src = "http://downloadicons.net/sites/default/files/blue-circle-button-icon-32722.png">'
+var mine = '<img src = "https://cdn4.iconfinder.com/data/icons/mining-icons/100/3-512.png">'
+var player = '<img src ="http://www.vican.no/lei-et-foredrag/img/wdot.png">'
 var randomInt = function(min,max){
   return Math.floor(Math.random()*(max-min))+min
 }
