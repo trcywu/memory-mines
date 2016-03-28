@@ -9,13 +9,15 @@
 
 
 $(function(){
+ startGame();
+});
+
+function startGame(){
   gridBuilder();
   pathDrawing();
-  dropMines(15);
+  dropMines(3);
   setupPlayer();
-  reset();
-  // bindArrowEvents();
-});
+}
 
 var width = 6;
 var start = (width*width)-(width);
@@ -29,6 +31,7 @@ var player = '<img src ="http://www.vican.no/lei-et-foredrag/img/wdot.png">'
 var randomInt = function(min,max){
   return Math.floor(Math.random()*(max-min))+min
 }
+var highScore = [];
 
 
 function gridBuilder(){
@@ -78,21 +81,23 @@ function setupPlayer(){
   $($(".grid li")[start]).html(player);
   $('body').on("keydown", function(event) {
      event.preventDefault();
-
+     $($('.grid li')[playerPosition]).css("backgroundColor", "green");
      // Up
      if (event.which === 38){
        // Change the position to up
-       var moveTo = (playerPosition - width);
+       console.log("playerPosition up: " + playerPosition)
+       var moveTo = (playerPosition -= width);
        // Move the player
        $($('.grid li')[moveTo]).html(player);
-       $($('.grid li')[playerPosition]).css("color", "blue");
+       
        
 
        playerPosition = moveTo;
      // Right
      } else if (event.which === 39){
        // Change the position to right
-       var moveTo = (playerPosition + 1);
+       console.log("playerPosition right: " + playerPosition)
+       var moveTo = (playerPosition += 1);
        // Move the player
        $($('.grid li')[moveTo]).html(player);
        playerPosition = moveTo;
@@ -111,30 +116,50 @@ function checkForWin() {
   if (playerPosition === finish) {
     alert("you win!")
     scoreCounter++;
+    console.log("scorecounter is " + scoreCounter)
     $('li#scoreCounter').html(scoreCounter);
     reset();
   }
   $.each(mines, function(i, mine){
     if (playerPosition == mine) {
-      $(playerPosition).css("color", "red")
+    $($('.grid li')[playerPosition]).css("backgroundColor", "red")
+      console.log(playerPosition)
       alert("you've hit a mine. Game Over");
+      scoreCounter = 0;
+      $('li#scoreCounter').html(scoreCounter)
+      
       reset();
+      console.log("scoreCounter is 0")
+
       //function that happens when you lose
     }  
   });
+  showHighScore(scoreCounter);
 }
 
 function reset() {
-$.each(squares, function(i, square){
-  $($(".grid")[i]).html("");
-  setupPlayer();
-  dropMines();
-})
-
-
-
-
+  console.log("reset")
+ $.each($(".squares"), function(i, square){
+  $(square).html("");
+  $(square).removeClass();
+ })
+  $('ul.grid').remove();
+  playerPosition = start;
+  
+  gridBuilder();
+  pathDrawing();
+  dropMines(3);
+  $($(".grid li")[start]).html(player);
 }
+
+function showHighScore(scoreCounter){
+ highScore.push(scoreCounter);
+ highScore.sort().reverse()
+ $('#HighScoreCounter').html(highScore[0]);
+}
+
+
+
 
 //   for (var i = 0; i < boxes.length; i++) {
 //     boxes[i].innerHTML = "";
