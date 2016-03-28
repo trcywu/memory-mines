@@ -37,7 +37,7 @@ var highScore = [];
 function gridBuilder(){
   $("body").append("<ul class='grid'></ul>");
   for (var i=0; i < (width*width); i++){
-    $(".grid").append("<li class='squares' id='"+i+"'>"+i+"</li>")
+    $(".grid").append("<li class='squares' id='"+i+"'></li>")
   }
 }
 
@@ -107,10 +107,6 @@ function setupPlayer(){
    });
 }
 
-// establish a winGame function whereby if the playerPosition does not coincide with where the mines have been dropped randomPossibleSquare and arrives at the finish square then it's a win
-// function reset(){
-//   $($(".grid li")[start]).html(player);
-// }
 
 function checkForWin() {
   if (playerPosition === finish) {
