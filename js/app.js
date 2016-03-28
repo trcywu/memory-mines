@@ -6,20 +6,8 @@
 //Steps
 //for the first game, click 'Play Game' and the mines will randomly be placed on the grid
 
-//  $('li.mines').html(mine);
-//  $('li.x0y0').html(player);
-//  $('li.mines img').delay(5000).fadeOut();
-//  $('li.mines').on("click", function(randomMine){
-//  }) 
-// randomInt(1,4)
 
 
-
-
-
-var Grid
-var score
-var scoreCounter = 0
 var mine = '<img src = "https://cdn4.iconfinder.com/data/icons/mining-icons/100/3-512.png">'
 var player = '<img src ="http://www.vican.no/lei-et-foredrag/img/wdot.png">'
 var randomInt = function(min,max){
@@ -30,17 +18,18 @@ var randomInt = function(min,max){
 $(function(){
   gridBuilder();
   pathDrawing();
-  dropMines(4);
+  dropMines(12);
   setupPlayer();
   // bindArrowEvents();
   winGame();
 });
 
-var width = 4;
+var width = 6;
 var start = (width*width)-(width);
 var finish = (width-1);
 var path  = [start];
 var playerPosition = start;
+var scoreCounter = 0;
 
 function gridBuilder(){
   $("body").append("<ul class='grid'></ul>");
@@ -81,7 +70,7 @@ function dropMines(numberOfMines){
     var randomPossibleSquare = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
     $($(".grid li")[randomPossibleSquare]).html(mine);
   }
-    $('li.squares img').delay(5000).fadeOut();
+    $('li.squares img').delay(3000).fadeOut();
 }
 
 function setupPlayer(){
