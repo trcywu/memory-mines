@@ -18,10 +18,10 @@ var randomInt = function(min,max){
 $(function(){
   gridBuilder();
   pathDrawing();
-  dropMines(12);
+  dropMines(15);
   setupPlayer();
+  // reset();
   // bindArrowEvents();
-  winGame();
 });
 
 var width = 6;
@@ -30,11 +30,12 @@ var finish = (width-1);
 var path  = [start];
 var playerPosition = start;
 var scoreCounter = 0;
+var mines = [];
 
 function gridBuilder(){
   $("body").append("<ul class='grid'></ul>");
   for (var i=0; i < (width*width); i++){
-    $(".grid").append("<li class='squares'>"+i+"</li>")
+    $(".grid").append("<li class='squares' id='"+i+"'>"+i+"</li>")
   }
 }
 
@@ -69,6 +70,7 @@ function dropMines(numberOfMines){
   for (var i = 0; i < numberOfMines; i++) {
     var randomPossibleSquare = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
     $($(".grid li")[randomPossibleSquare]).html(mine);
+    mines.push(randomPossibleSquare);
   }
     $('li.squares img').delay(3000).fadeOut();
 }
@@ -102,23 +104,30 @@ function setupPlayer(){
 }
 
 // establish a winGame function whereby if the playerPosition does not coincide with where the mines have been dropped randomPossibleSquare and arrives at the finish square then it's a win
+// function reset(){
+//   $($(".grid li")[start]).html(player);
+// }
 
 function checkForWin() {
   if (playerPosition === finish) {
-    alert("Win!");
+    alert("you win!")
     scoreCounter++;
-    $('li.scoreCounter').html("scoreCounter")
-    //reset the game but keep the score
-  } else if (playerPosition === randomPossibleSquare) {
-    alert("You've hit a mine. Game Over");
-    //reset the game and wipe the score
+    $('li#scoreCounter').html(scoreCounter);
   }
-
-  
-
+  $.each(mines, function(i, mine){
+    if (playerPosition == mine) {
+      $(playerPosition).css("color", "red")
+      alert("you've hit a mine. Game Over");
+      //function that happens when you lose
+    }  
+  });
 }
 
 
+
+//reset the game but keep the score
+
+// else if player position equals any of the mines, you've lost use each and for loop
 
 
 

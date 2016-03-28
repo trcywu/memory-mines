@@ -16,15 +16,23 @@ h2 {
 
 .instructions {
   color: white;
+  height: 120px;
 }
 
 .scoreboard {
   color: white;
 }
 
+.scoreboard li {
+  border: 1px solid white;
+  list-style-type: none;
+  width: 200px;
+  margin: 0 auto;
+  display: inline-block;
+}
+
 #inst {
-  width: 400px;
-  height: 300px
+  width: 600px;
   color: white;
   margin: 0 auto;
 }
