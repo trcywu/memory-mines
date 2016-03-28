@@ -13,23 +13,7 @@
 //  }) 
 // randomInt(1,4)
 
-//  function randomMine(){
-//    var randomNumber = Math.random();
-//    if (randomNumber < 0.25) {
-//      return ("x2y0","x3y0")
-//    } else if (randomNumber < 0.50) {
-//      return ("x1y1" "x2y1" || "x3y1")
-//    } else if (randomNumber < 0.75) {
-//      return ("x0y2" || "x1y2" || "x2y2" || "x3y2")
-//    } else (randomNumber < 1.0) 
-//    return ("x0y3" || "x1y3" || "x2y3")
-//  }
 
-//  var dangerMine = randomMine();
-
-//  console.log(dangerMine)
-
-//  $(this).addClass("mine")
 
 
 
@@ -101,37 +85,45 @@ function dropMines(numberOfMines){
 }
 
 function setupPlayer(){
-  $($(".grid li")[start]).html(player)
-  $('body').on("keydown", function(squares) {
-     squares.preventDefault();
-     if (squares.which === 38){
-      var moveTo = (playerPosition - width);
-      $($('.grid li')[moveTo]).html(player);
-        playerPosition = moveTo
+  $($(".grid li")[start]).html(player);
+  $('body').on("keydown", function(event) {
+     event.preventDefault();
 
-     } else if (squares.which === 39){
-      var moveTo = (playerPosition + 1);
-      $($('.grid li')[moveTo]).html(player);
-        playerPosition = moveTo
+     // Up
+     if (event.which === 38){
+       // Change the position to up
+       var moveTo = (playerPosition - width);
+       // Move the player
+       $($('.grid li')[moveTo]).html(player);
+       // Clear the grid
+       $($('.grid li')[playerPosition]).empty();
+
+       playerPosition = moveTo;
+     // Right
+     } else if (event.which === 39){
+       // Change the position to right
+       var moveTo = (playerPosition + 1);
+       // Move the player
+       $($('.grid li')[moveTo]).html(player);
+       // Clear the grid
+       $($('.grid li')[playerPosition]).empty();
+
+       playerPosition = moveTo;
      }
- })
+
+     checkForWin();
+   });
 }
 
-// check back
+// establish a winGame function whereby if the playerPosition does not coincide with where the mines have been dropped randomPossibleSquare and arrives at the finish square then it's a win
 
-function winGame() {
-  if (moveTo === finish){
-    console.log("win")
+function checkForWin() {
+  if (playerPosition === finish) {
+    alert("Win!");
   }
 }
 
-// Check for a win
- game.checkForWin = function checkForWin(){
-  if ($("#0").hasClass("player")) {
-    $("h1").append("Congratulations, you beat the level!");
-    // Need to add in a feature to end the game and reset the level here.
- }
-}
+
 
 
 
