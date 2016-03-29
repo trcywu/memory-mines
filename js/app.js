@@ -75,7 +75,7 @@ function dropMines(numberOfMines){
     $($(".grid li")[randomPossibleSquare]).html(mine);
     mines.push(randomPossibleSquare);
   }
-    $('li.squares img').delay(3000).fadeOut();
+    $('li.squares img').delay(2500).fadeOut();
 }
 
 function setupPlayer(){
@@ -84,6 +84,8 @@ function setupPlayer(){
   $('body').on("keydown", function(event) {
      event.preventDefault();
      $($('.grid li')[playerPosition]).css("backgroundColor", "#778899");
+     var audio = new Audio('./audio/bloop.mp3');
+     audio.play();
      // Up
      if (event.which === 38){
        // Change the position to up
@@ -112,6 +114,8 @@ function setupPlayer(){
 
 function checkForWin() {
   if (playerPosition === finish) {
+    var audio = new Audio('./audio/win.mp3');
+    audio.play();
     // alert("you win!")
     scoreCounter++;
     $('li#scoreCounter').html(scoreCounter);
@@ -119,13 +123,14 @@ function checkForWin() {
   }
   $.each(mines, function(i, mine){
     if (playerPosition == mine) {
-    $($('.grid li')[playerPosition]).css("backgroundImage", "url(/images/fire.gif) no-repeat;")
+    $($('.grid li')[playerPosition]).css("backgroundImage", "url(/images/fire.gif) no-repeat;");
+      var audio = new Audio('./audio/explosion1.mp3');
+      audio.play();
       alert("you've hit a mine. Game Over");
       scoreCounter = 0;
       $('li#scoreCounter').html(scoreCounter)
       
       reset();
-      console.log("scoreCounter is 0")
 
       //function that happens when you lose
     }  
