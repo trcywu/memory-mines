@@ -15,7 +15,7 @@ $(function(){
 function startGame(){
   gridBuilder();
   pathDrawing();
-  dropMines(8);
+  dropMines(20);
   setupPlayer();
 }
 
@@ -28,6 +28,7 @@ var scoreCounter = 0;
 var mines = [];
 var mine = '<img src = "https://cdn4.iconfinder.com/data/icons/mining-icons/100/3-512.png">'
 var player = '<img src ="http://www.vican.no/lei-et-foredrag/img/wdot.png">'
+var finishImg = '<img src= "http://icons.iconarchive.com/icons/iconka/st-patricks-day/256/pot-of-gold-icon.png">'
 var randomInt = function(min,max){
   return Math.floor(Math.random()*(max-min))+min
 }
@@ -79,9 +80,10 @@ function dropMines(numberOfMines){
 
 function setupPlayer(){
   $($(".grid li")[start]).html(player);
+  $($(".grid li")[finish]).html(finishImg);
   $('body').on("keydown", function(event) {
      event.preventDefault();
-     $($('.grid li')[playerPosition]).css("backgroundColor", "green");
+     $($('.grid li')[playerPosition]).css("backgroundColor", "#778899");
      // Up
      if (event.which === 38){
        // Change the position to up
@@ -110,16 +112,14 @@ function setupPlayer(){
 
 function checkForWin() {
   if (playerPosition === finish) {
-    alert("you win!")
+    // alert("you win!")
     scoreCounter++;
-    console.log("scorecounter is " + scoreCounter)
     $('li#scoreCounter').html(scoreCounter);
     reset();
   }
   $.each(mines, function(i, mine){
     if (playerPosition == mine) {
-    $($('.grid li')[playerPosition]).css("backgroundColor", "red")
-      console.log(playerPosition)
+    $($('.grid li')[playerPosition]).css("backgroundImage", "url(/images/fire.gif) no-repeat;")
       alert("you've hit a mine. Game Over");
       scoreCounter = 0;
       $('li#scoreCounter').html(scoreCounter)
@@ -145,8 +145,9 @@ function reset() {
   gridBuilder();
   pathDrawing();
   mines = [];
-  dropMines(8);
+  dropMines(20);
   $($(".grid li")[start]).html(player);
+  $($(".grid li")[finish]).html(finishImg);
 }
 
 function showHighScore(scoreCounter){

@@ -1,5 +1,6 @@
 body {
   background-color: #003333;
+  font-family: copperplate; 
 }
 
 h1 {
@@ -7,6 +8,7 @@ h1 {
   height: 80px;
   padding-top: 10px;
   color: white;
+  font-size: 40px;
 }
 
 h2 {
@@ -21,18 +23,27 @@ h2 {
 
 .scoreboard {
   width: 400px;
+  height: 60px;
   margin: 0 auto;
 }
 
 .scoreboard li {
   height: 20px;
-  width: 200px;
+  width: 190px;
   border: 1px solid white;
   margin: 0 auto;
   text-align: center;
   font-size: 20px;
   color: white;
   list-style-type: none;
+}
+
+.score1 {
+  float: left;
+}
+
+.score2 {
+  float: left;
 }
 
 #inst {
