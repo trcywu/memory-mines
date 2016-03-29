@@ -61,10 +61,11 @@ function dropMines(numberOfMines){
   for (var i = 0; i < numberOfMines; i++) {
     var randomPossibleSquare = possibleMoves[Math.floor(Math.random()*possibleMoves.length)]
     $($(".grid li")[randomPossibleSquare]).html(mine);
+    
     mines.push(randomPossibleSquare);
   }
   
-  $('li.squares img').delay(2500 * (1/difficulty)).fadeOut("slow", function(){
+  $('li.squares img').delay(10000 * (1/difficulty)).fadeOut("slow", function(){
     play = true;
   });
 }
@@ -106,17 +107,21 @@ function move() {
       return false;
   }
 
-  // Check if the next move is outside the grid
-  if (nextPosition % width === 0) {
-    nextPosition = previousPosition;
-    return true;
-  } 
-
-  // Check if top row
-  if (nextPosition < 0) {
+  // Check if top or bottom row
+  if (nextPosition < 0 || nextPosition > width*width) {
+    console.log("nextPosition < 0")
     nextPosition = previousPosition;
     return true;
   }
+
+  // Check if the next move is outside the grid
+  // if (previousPosition % width === (width-1) && nextPosition % width === 0 ||
+  //   previousPosition % width === 0 && nextPosition % width === (width-1)) {
+  //   console.log("nextPosition % width === 0")
+  //   nextPosition = previousPosition;
+  //   return true;
+  // } 
+
 
   $($squares[previousPosition]).css("backgroundColor", "#778899");
   $($squares[previousPosition]).html("");
@@ -135,19 +140,32 @@ function checkForWin() {
     audio.play();
     scoreCounter++;
     $scoreCounter.html(scoreCounter);
-    reset();
+    setTimeout(function(){
+      audio.pause();
+      audio.currentTime = 0;
+      reset();
+    }, 3000);
   }
 
   $.each(mines, function(i, mine){
-    if (playerPosition == mine) {
-    $($squares[playerPosition]).css("backgroundImage", "url(/images/fire.gif) no-repeat;");
+    if (playerPosition === mine) {
+      
       var audio = new Audio('./audio/explosion1.mp3');
       audio.play();
-      alert("you've hit a mine. Game Over");
+
+      $.each(mines, function(i, mine){
+        console.log($($squares[mine])[0])
+        $($squares[mine])
+          .find("img")
+          .attr("src", "images/fire.gif")
+          .fadeIn("600", function(){
+            $(this).fadeOut(1000);
+          })
+      })
+
       scoreCounter = 0;
       $scoreCounter.html(scoreCounter)
-      
-      reset();
+      setTimeout(reset, 1000);
     }  
   });
 
