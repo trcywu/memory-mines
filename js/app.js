@@ -65,7 +65,7 @@ function dropMines(numberOfMines){
     mines.push(randomPossibleSquare);
   }
   
-  $('li.squares img').delay(10000 * (1/difficulty)).fadeOut("slow", function(){
+  $('li.squares img').delay(50000 * (1/difficulty)).fadeOut("slow", function(){
     play = true;
   });
 }
@@ -159,13 +159,13 @@ function checkForWin() {
           .find("img")
           .attr("src", "images/fire.gif")
           .fadeIn("600", function(){
-            $(this).fadeOut(1000);
+            $(this).fadeOut(10000);
           })
       })
 
       scoreCounter = 0;
       $scoreCounter.html(scoreCounter)
-      setTimeout(reset, 1000);
+      setTimeout(reset, 2000);
     }  
   });
 
