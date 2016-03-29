@@ -1,7 +1,7 @@
 $(startGame);
 
 var width          = 6;
-var difficulty     = 10;
+var difficulty     = 24;
 var start          = (width*width)-(width);
 var finish         = (width-1);
 var path           = [start];
@@ -65,7 +65,7 @@ function dropMines(numberOfMines){
     mines.push(randomPossibleSquare);
   }
   
-  $('li.squares img').delay(50000 * (1/difficulty)).fadeOut("slow", function(){
+  $('li.squares img').delay(80000 * (1/difficulty)).fadeOut("slow", function(){
     play = true;
   });
 }
@@ -159,7 +159,7 @@ function checkForWin() {
           .find("img")
           .attr("src", "images/fire.gif")
           .fadeIn("600", function(){
-            $(this).fadeOut(10000);
+            $(this).fadeOut(50000);
           })
       })
 

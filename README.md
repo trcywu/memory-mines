@@ -36,4 +36,4 @@ Any resources used were either created by hand or are free of right and duly cre
 Inspred by 'Perilous Path' by PEAK
 
 ###Play the game online!
-[Memory Mines]()
+[Memory Mines](http://stormy-reef-20184.herokuapp.com/)
