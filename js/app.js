@@ -184,6 +184,7 @@ function checkForWin() {
 
 function reset() {
   var $squares      = $(".grid li");
+  var play          = false;
 
   $.each($squares, function(i, square){
     $(square).html("");
