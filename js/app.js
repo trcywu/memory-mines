@@ -1,4 +1,4 @@
-$(startGame);
+$(pressPlay);
 
 var width          = 6;
 var difficulty     = 24;
@@ -13,6 +13,16 @@ var player         = '<img src="images/whiteDot.png">'
 var finishImg      = '<img src="images/pot-of-gold.png">'
 var highScore      = [];
 var play           = false;
+
+function pressPlay() {
+$("#playGame").on("click", function(){
+  $(".grid").remove();
+  $("#playGame").html("Play Again");
+  startGame();
+})
+}
+
+
 
 function startGame(){
   gridBuilder();

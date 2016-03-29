@@ -38,6 +38,17 @@ h2 {
   list-style-type: none;
 }
 
+#playGame {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 8px;
+  background-color: white;
+  border-radius: 0;
+  border: none;
+  padding: 5px 10px 5px 10px;
+}
+
 .score1 {
   float: left;
 }
