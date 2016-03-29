@@ -1,13 +1,7 @@
 $(startGame);
 
-function startGame(){
-  gridBuilder();
-  pathDrawing();
-  dropMines(20);
-  setupPlayer();
-}
-
 var width          = 6;
+var difficulty     = 10;
 var start          = (width*width)-(width);
 var finish         = (width-1);
 var path           = [start];
@@ -18,6 +12,14 @@ var mine           = '<img src="images/mine.png">'
 var player         = '<img src="images/whiteDot.png">'
 var finishImg      = '<img src="images/pot-of-gold.png">'
 var highScore      = [];
+var play           = false;
+
+function startGame(){
+  gridBuilder();
+  pathDrawing();
+  dropMines(difficulty);
+  setupPlayer();
+}
 
 function gridBuilder(){
   var $body = $("body");
@@ -62,7 +64,9 @@ function dropMines(numberOfMines){
     mines.push(randomPossibleSquare);
   }
   
-  $('li.squares img').delay(2500).fadeOut();
+  $('li.squares img').delay(2500 * (1/difficulty)).fadeOut("slow", function(){
+    play = true;
+  });
 }
 
 function setupPlayer(){
@@ -76,25 +80,48 @@ function setupPlayer(){
 
 function move() {
   event.preventDefault();
-  var $squares = $(".grid li");
+  if (!play) return false;
 
-  $($squares[playerPosition]).css("backgroundColor", "#778899");
-  
+  var $squares = $(".grid li");  
   var audio = new Audio('./audio/bloop.mp3');
   audio.play();
-  var moveTo;
+
+  var previousPosition = playerPosition;
+  var nextPosition;
 
   switch (event.which) {
-    case 38: 
-      moveTo = (playerPosition -= width);
+    case 38: // right
+      nextPosition = (playerPosition - width);
       break;
-    case 39:
-      moveTo = (playerPosition += 1);
+    case 39: // up 
+      nextPosition = (playerPosition + 1);
       break;
+    case 37: // left
+      nextPosition = (playerPosition - 1);
+      break;
+    case 40: // down
+      nextPosition = (playerPosition + width);
+      break;
+    default:
+      return false;
   }
 
-  $($squares[moveTo]).html(player);
-  playerPosition = moveTo;
+  // Check if the next move is outside the grid
+  if (nextPosition % width === 0) {
+    nextPosition = previousPosition;
+    return true;
+  } 
+
+  // Check if top row
+  if (nextPosition < 0) {
+    nextPosition = previousPosition;
+    return true;
+  }
+
+  $($squares[previousPosition]).css("backgroundColor", "#778899");
+  $($squares[previousPosition]).html("");
+  $($squares[nextPosition]).html(player);
+  playerPosition = nextPosition;
 
   checkForWin();
 }
@@ -128,23 +155,29 @@ function checkForWin() {
 }
 
 function reset() {
-  $.each($(".squares"), function(i, square){
+  var $squares      = $(".grid li");
+
+  $.each($squares, function(i, square){
     $(square).html("");
-    $(square).removeClass();
+    $(square)[0].style = null;
+    $(square).attr("class", "squares");
   });
 
-  $('ul.grid').remove();
   playerPosition = start;
-  gridBuilder();
   pathDrawing();
   mines = [];
-  dropMines(20);
-  $($(".grid li")[start]).html(player);
-  $($(".grid li")[finish]).html(finishImg);
+  dropMines(difficulty++);
+
+  $($squares[start]).html(player);
+  $($squares[finish]).html(finishImg);
 }
+
 
 function showHighScore(scoreCounter){
   highScore.push(scoreCounter);
   highScore.sort().reverse()
   $('#HighScoreCounter').html(highScore[0]);
 }
+
+
+
